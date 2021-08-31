@@ -32,7 +32,7 @@ def quit():
 
 def choose_word(list):
     index = (randint(0, len(list)))
-    print(list[index])
+    return list[index][1]
     # chooses word and returns it as string
     pass
 
