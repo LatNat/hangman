@@ -1,80 +1,5 @@
 from random import randint
 
-def play(word, lives):
-    secret = []
-    solution = ''
-    for i in range(len(word)):
-        if word[i] in ['-', ' ']:
-            secret.append('')
-            solution += (word[i])
-        else:
-            secret.append('_')
-            solution += (word[i])
-    print(' '.join(secret))
-    print(solution)
-    print(word)
-    # print(len(solution))
-    # print(len(secret))
-    # main function
-    pass
-
-
-def display():
-    # display word, reveal guessed letters
-    pass
-
-
-def word_set(set):
-    # stores the letters of the word as a set
-    pass
-
-
-def guess():
-    guess = input('Choose a letter: ')
-    return guess
-    # takes input
-    pass
-
-
-def lives():
-    lives = 7
-    return lives
-    # counts lives and gives it to play() func as arg
-    pass
-
-
-def quit():
-    # exit func
-
-    pass
-
-def choose_word(list):
-    index = (randint(0, len(list)))
-    return str(list[index][0])
-    # chooses word and returns it as string
-
-
-def scan_letter(letter, word):
-    stored_indexes = []
-    for i in range(len(word)):
-        if letter == word[i]:
-            stored_indexes.append(i)
-    print(stored_indexes)
-
-
-    # checks if letter is in word
-    pass
-
-
-def validate_guess():
-    # might not need this
-    pass
-
-
-def play_log(set):
-    # stores guesses
-    pass
-
 
 def store_file():
     list = []
@@ -85,11 +10,19 @@ def store_file():
         words = line.split(' | ')
         list.append(words)
     return list
-    # stores txt contents as a list (or two lists?)
 
-file = store_file()
-liv = lives()
-letter = guess()
-word = choose_word(file)
-play(word, liv)
-scan_letter(letter, word)
+
+def choose_word(wordlist):
+    index = (randint(0, len(wordlist)))
+    return str(wordlist[index][0])
+
+
+def play(word, lives):
+    set_of_letters = set(word)
+    if set_of_letters == {}:
+        print("You've won!")
+
+
+wordlist = store_file()             # reads the txt file and stores it as a list
+
+reference = choose_word(wordlist)   # reference is the word that needs to be guessed // might not need this
