@@ -1,6 +1,20 @@
 from random import randint
 
 def play(word, lives):
+    secret = []
+    solution = ''
+    for i in range(len(word)):
+        if word[i] in ['-', ' ']:
+            secret.append('')
+            solution += (word[i])
+        else:
+            secret.append('_')
+            solution += (word[i])
+    print(' '.join(secret))
+    print(solution)
+    print(word)
+    print(len(solution))
+    print(len(secret))
     # main function
     pass
 
@@ -16,11 +30,15 @@ def word_set(set):
 
 
 def guess():
+    guess = input('Choose a letter: ')
+    return guess
     # takes input
     pass
 
 
 def lives():
+    lives = 7
+    return lives
     # counts lives and gives it to play() func as arg
     pass
 
@@ -32,12 +50,12 @@ def quit():
 
 def choose_word(list):
     index = (randint(0, len(list)))
-    return list[index][1]
+    return str(list[index][0])
     # chooses word and returns it as string
-    pass
 
 
 def scan_letter():
+    
     # checks if letter is in word
     pass
 
@@ -63,4 +81,4 @@ def store_file():
     return list
     # stores txt contents as a list (or two lists?)
 
-choose_word(store_file())
+play((choose_word(store_file())), lives())
