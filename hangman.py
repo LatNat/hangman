@@ -1,3 +1,5 @@
+from random import randint
+
 def play(word, lives):
     # main function
     pass
@@ -28,8 +30,10 @@ def quit():
 
     pass
 
-def choose_word():
-    # chooses word and gives it to play() func as arg
+def choose_word(list):
+    index = (randint(0, len(list)))
+    print(list[index])
+    # chooses word and returns it as string
     pass
 
 
@@ -49,12 +53,14 @@ def play_log(set):
 
 
 def store_file():
+    list = []
     with open('countries-and-capitals.txt', 'r') as f:
         data = f.readlines()
 
     for line in data:
         words = line.split(' | ')
-    
+        list.append(words)
+    return list
     # stores txt contents as a list (or two lists?)
 
-store_file()
+choose_word(store_file())
