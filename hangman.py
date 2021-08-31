@@ -13,8 +13,8 @@ def play(word, lives):
     print(' '.join(secret))
     print(solution)
     print(word)
-    print(len(solution))
-    print(len(secret))
+    # print(len(solution))
+    # print(len(secret))
     # main function
     pass
 
@@ -54,8 +54,14 @@ def choose_word(list):
     # chooses word and returns it as string
 
 
-def scan_letter():
-    
+def scan_letter(letter, word):
+    stored_indexes = []
+    for i in range(len(word)):
+        if letter == word[i]:
+            stored_indexes.append(i)
+    print(stored_indexes)
+
+
     # checks if letter is in word
     pass
 
@@ -81,4 +87,9 @@ def store_file():
     return list
     # stores txt contents as a list (or two lists?)
 
-play((choose_word(store_file())), lives())
+file = store_file()
+liv = lives()
+letter = guess()
+word = choose_word(file)
+play(word, liv)
+scan_letter(letter, word)
