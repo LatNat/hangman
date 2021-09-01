@@ -60,6 +60,9 @@ def choose_word(wordlist):
 # chooses a word, returns it as string
 
 
+def encode(secret):
+    return ' '.join(secret)
+
 def iterate_guess(word, guess):
     stored_indexes = []
     for i in range(len(word)):
@@ -77,7 +80,7 @@ def iterate_guess(word, guess):
 def play(word, lives):
     set_of_letters = set(word)
     tries = lives
-    secret = '_ '*(len(word))
+    secret = list('_'*(len(word)))
     if set_of_letters == {}:
         cls()
         print("You've won!")
@@ -91,8 +94,9 @@ def play(word, lives):
     playlog = set()
     while tries > 0:
         cls()
-        print(secret)
+        print(encode(secret))
         print(playlog)
+        print(word)
         guess = input()
         try:
             int(guess)
