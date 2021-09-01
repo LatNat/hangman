@@ -7,7 +7,6 @@ menu_screen1 = '''\r1 - New Game
 2 - Quit'''
 menu_screen2 = '''\r1 - Easy
 2 - Hard'''
-
 # menu screens
 
 
@@ -36,6 +35,7 @@ def menu():
             print('goodbye')
             return False
 
+
 # prints out menu screens, lets you choose difficulty, returns lives / or False (not yet used)
 
 
@@ -56,10 +56,13 @@ def choose_word(wordlist):
     index = (randint(0, len(wordlist)))
     return str(wordlist[index][0])
 
+
 # chooses a word, returns it as string
+
 
 def iterate_guess():
     pass
+
 
 def play(word, lives):
     set_of_letters = set(word)
@@ -92,8 +95,7 @@ def play(word, lives):
         else:
             tries -= 1
         continue
-        
-        
+
 
 # main play function. untouched.
 
