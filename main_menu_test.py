@@ -60,8 +60,18 @@ def choose_word(wordlist):
 # chooses a word, returns it as string
 
 
-def iterate_guess():
-    pass
+def iterate_guess(word, guess):
+    stored_indexes = []
+    for i in range(len(word)):
+        if word[i] == guess:
+            stored_indexes.append(i)
+    return [stored_indexes, guess]
+
+
+# def display_letters(stored_indexes, guess):
+#   map()
+
+# maybe use map() function?? could be right for us
 
 
 def play(word, lives):
@@ -78,23 +88,31 @@ def play(word, lives):
             global gamestate
             gamestate = False
             return gamestate
+    playlog = set()
     while tries > 0:
-        playlog = {}
         cls()
         print(secret)
+        print(playlog)
         guess = input()
-        playlog.append(guess)
         if guess == 'quit':
             break
         elif len(guess) > 1 and guess != quit:
             print('just one letter pls')
-            time.sleep(2)
+            time.sleep(1.5)
+            continue
+        elif guess in playlog:
+            print("you've already tried this...")
+            time.sleep(1.5)
+            continue
 #        elif guess in set_of_letters:
-#            for i in range(len(word)):
+#            playlog.add(guess)
+#            iterate_guess(word, guess)
 #            pass
         else:
             tries -= 1
-        continue
+            playlog.add(guess)
+            print(playlog)
+            continue
 
 
 # main play function. untouched.
