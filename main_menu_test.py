@@ -39,6 +39,15 @@ def menu():
 # prints out menu screens, lets you choose difficulty, returns lives / or False (not yet used)
 
 
+def game(gamestate=True):
+    while gamestate is True:                    # im bothered by this being on its own but might work anyway
+        lives = menu()
+        if lives is False:
+            break
+        word = choose_word(wordlist)
+        play(word, lives)
+
+
 def store_file():
     list = []
     with open('countries-and-capitals.txt', 'r') as f:
@@ -63,40 +72,48 @@ def choose_word(wordlist):
 def encode(secret):
     return ' '.join(secret)
 
-def iterate_guess(word, guess):
-    stored_indexes = []
+
+def display_letters(secret, word, guess):
+    word = word.lower()
+    guess = guess.lower()
     for i in range(len(word)):
         if word[i] == guess:
-            stored_indexes.append(i)
-    return stored_indexes
+            secret[i] = guess
+    return secret
 
 
-# def display_letters(stored_indexes, guess):
-#   map()
-
-# maybe use map() function?? could be right for us
+def newgame():
+    newgame = ''
+    cls()
+    newgame = input('New Game? Y/N\n')
+    newgame = newgame.upper()   # asks for new game, if N: gamestate is false (might not work as intended)
+    if newgame == 'Y':
+        return True
+    elif newgame == 'N':
+        cls()
+        print('goodbye')
+        time.sleep(2)
+        return False
 
 
 def play(word, lives):
-    set_of_letters = set(word)
+    set_of_letters = set([i for i in word.lower() if i != ' '])
     tries = lives
-    secret = list('_'*(len(word)))
-    if set_of_letters == {}:
-        cls()
-        print("You've won!")
-        newgame = input('New Game? Y/N')    # asks for new game, if N: gamestate is false (might not work as intended)
-        if newgame == 'y'.upper():
-            pass                            # don't know how to start new game (yet). skipping this for now
-        elif newgame == 'n'.upper():
-            global gamestate
-            gamestate = False
-            return gamestate
+    secret = ['_' if i != ' ' else ' ' for i in word]
     playlog = set()
+    empty_set = set()
     while tries > 0:
         cls()
         print(encode(secret))
         print(playlog)
         print(word)
+        print(set_of_letters)
+        if set_of_letters == empty_set:
+            cls()
+            print("You've won!")
+            time.sleep(1.5)
+            gamestate = newgame()
+            game(gamestate)
         guess = input()
         try:
             int(guess)
@@ -115,10 +132,11 @@ def play(word, lives):
             print("you've already tried this...")
             time.sleep(1.5)
             continue
-#        elif guess in set_of_letters:
-#            playlog.add(guess)
-#            iterate_guess(word, guess)
-#            pass
+        elif guess in set_of_letters:
+            playlog.add(guess)
+            secret = display_letters(secret, word, guess)
+            set_of_letters.remove(guess)
+            continue
         else:
             tries -= 1
             playlog.add(guess)
@@ -128,7 +146,7 @@ def play(word, lives):
 
 # main play function. untouched.
 
-gamestate = True
+
 wordlist = store_file()
 
 
@@ -137,9 +155,4 @@ wordlist = store_file()
 # and we migh not need gamestate anyway
 
 
-while gamestate is True:                    # im bothered by this being on its own but might work anyway
-    lives = menu()
-    if lives is False:
-        break
-    word = choose_word(wordlist)
-    play(word, lives)
+game()
