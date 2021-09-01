@@ -5,13 +5,13 @@ menu_screen1 = '''\r1 - New Game
 2 - Quit'''
 menu_screen2 = '''\r1 - Easy
 2 - Hard'''
-
 # menu screens
 
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
 
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
 # this function clears the screen. not necessary
+
 
 def menu():
     print(menu_screen1)
@@ -29,7 +29,6 @@ def menu():
             cls()
             print('goodbye')
             return False
-        
 # prints out menu screens, lets you choose difficulty, returns lives / or False (not yet used)
 
 
@@ -74,5 +73,4 @@ while gamestate is True:
     if lives is False:
         break
     word = choose_word(wordlist)
-
 # running the game
