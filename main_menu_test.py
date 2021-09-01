@@ -65,7 +65,7 @@ def iterate_guess(word, guess):
     for i in range(len(word)):
         if word[i] == guess:
             stored_indexes.append(i)
-    return [stored_indexes, guess]
+    return stored_indexes
 
 
 # def display_letters(stored_indexes, guess):
@@ -94,6 +94,13 @@ def play(word, lives):
         print(secret)
         print(playlog)
         guess = input()
+        try:
+            int(guess)
+            print('this is a number you idiot')
+            time.sleep(1.5)
+            continue
+        except ValueError:
+            guess = guess.lower()
         if guess == 'quit':
             break
         elif len(guess) > 1 and guess != quit:
