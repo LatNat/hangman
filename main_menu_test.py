@@ -127,7 +127,7 @@ def menu():
                 return 3
         elif cho == '2':
             cls()
-            print('goodbye')
+            print("Don't come back")
             return False
 
 
@@ -184,6 +184,16 @@ def display_letters(secret, word, guess):
             secret[i] = guess
     return secret
 
+def insult():
+    insults = ['Lame...', 'Dude, please...', 'No comment', "I think you're a little slow","This is embarrassing","Not good. Not a surprise."]
+    index = randint(0, 5)
+    return insults[index]
+
+def hypeman():
+    hype = ["YEA GIMME THAT!", "WOOOOOOO!!!!", "YEA BABY!", "NOW THAT'S WHAT I CALL A LETTER!", "SKRRRRT!"]
+    index = randint(0, 4)
+    return hype[index]
+
 
 def newgame():
     newgame = ''
@@ -194,7 +204,7 @@ def newgame():
         return True
     elif newgame == 'N':
         cls()
-        print('goodbye')
+        print("Don't come back")
         time.sleep(2)
         return False
 
@@ -239,7 +249,7 @@ _____╔═╩╩══════╗______/ \______________''')
         guess = input()
         try:
             int(guess)
-            print('this is a number you idiot')
+            print('This is a number you idiot')
             time.sleep(1.5)
             continue
         except ValueError:
@@ -251,7 +261,7 @@ _____╔═╩╩══════╗______/ \______________''')
             time.sleep(1.5)
             continue
         elif len(guess) > 1 and guess != quit:
-            print('just one letter pls')
+            print('Just one letter please')
             time.sleep(1.5)
             continue
         elif guess not in valid_guesses:
@@ -259,18 +269,21 @@ _____╔═╩╩══════╗______/ \______________''')
             time.sleep(1.5)
             continue
         elif guess in playlog:
-            print("you've already tried this...")
+            print("You've already tried this...")
             time.sleep(1.5)
             continue
         elif guess in set_of_letters:
             playlog.add(guess)
             secret = display_letters(secret, word, guess)
             set_of_letters.remove(guess)
+            print(hypeman())
+            time.sleep(1.5)
             continue
         else:
             tries -= 1
             playlog.add(guess)
-            print(playlog)
+            print(insult())
+            time.sleep(1.5)
             continue
     cls()
     print(f'''	╔═════╤
