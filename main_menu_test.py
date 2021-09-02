@@ -141,7 +141,8 @@ def game(gamestate=True):
         if lives is False:
             break
         if lives == 3:
-            pass
+            word = choose_word2(wordlist)
+            play(word, lives)
         if lives == 7:
             word = choose_word(wordlist)        # if we include countries this needs to be renamed
             play(word, lives)
@@ -165,6 +166,15 @@ def choose_word(wordlist):
     try:
         str(wordlist[index][0])
         return str(wordlist[index][0])
+    except IndexError:
+        choose_word(wordlist)
+
+
+def choose_word2(wordlist):
+    index = (randint(0, len(wordlist)))
+    try:
+        city = str(wordlist[index][1])
+        return city[:-2]
     except IndexError:
         choose_word(wordlist)
 
