@@ -210,21 +210,24 @@ def play(word, lives):
         cls()
         guessthis = encode(secret)
         print(easy_lives(tries, lives, guessthis))
-        print(playlog)
-        print(word)
-        print(set_of_letters)
-        print(tries)
-        print(lives)
+        if playlog == empty_set:
+            print("You've already tried these: {}")
+        else:
+            print("You've already tried these: " + str(playlog))
+#        print(word)
+#        print(set_of_letters)
+#        print(tries)
+#        print(lives)
         if set_of_letters == empty_set:
             cls()
-            print('''	╔═════╤
-	║
+            print(f'''	╔═════╤       
+	║        Your word was : {word}
 	║                 
 	║                 (FUCK YEAH!!!)            
 	║             \O/ ˝
 	║              |
 _____╔═╩╩══════╗______/ \______________''')
-            time.sleep(2)
+            time.sleep(3)
             cls()
             print("You've won!")
             time.sleep(1.5)
@@ -269,6 +272,15 @@ _____╔═╩╩══════╗______/ \______________''')
             playlog.add(guess)
             print(playlog)
             continue
+    cls()
+    print(f'''	╔═════╤
+	║     O    Your word was : {word}
+	║    /|\\
+	║    / \\
+	║            YOU'RE STUPID!
+	║
+_____╔═╩╩══════╗________________________''')
+    time.sleep(3)
     retry = newgame()
     if retry is False:
         sys.exit()
