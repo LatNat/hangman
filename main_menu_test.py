@@ -229,6 +229,7 @@ def play(word, lives):
     while tries > 0:
         cls()
         guessthis = encode(secret)
+        guessthis = guessthis.capitalize()
         print(easy_lives(tries, lives, guessthis))
         if playlog == empty_set:
             print("You've already tried these: {}")
