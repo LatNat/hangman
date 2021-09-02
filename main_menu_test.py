@@ -4,6 +4,7 @@ import time
 import sys
 import string
 
+
 boot_screen = '''	╔═════╤
 	║
 	║	    E X T R E M E
@@ -25,7 +26,6 @@ menu_screen2 = '''\r	╔═════╤
 	║	   2 - Let's do this!    
 	║
 _____╔═╩╩══════╗________________________'''
-# menu screens
 
 
 def easy_lives(tries, lives, guessthis):
@@ -146,7 +146,7 @@ def game(gamestate=True):
         if lives == 7:
             word = choose_word(wordlist)        # if we include countries this needs to be renamed
             play(word, lives)
-        
+
 
 
 def store_file():
@@ -174,7 +174,7 @@ def choose_word2(wordlist):
     index = (randint(0, len(wordlist)))
     try:
         city = str(wordlist[index][1])
-        return city[:-2]
+        return city[:-1]
     except IndexError:
         choose_word(wordlist)
 
@@ -187,10 +187,13 @@ def encode(secret):
 
 
 def display_letters(secret, word, guess):
+    original_word = word
     word = word.lower()
     guess = guess.lower()
     for i in range(len(word)):
-        if word[i] == guess:
+        if original_word[i] == guess.upper():
+            secret[i] = guess.upper()
+        elif word[i] == guess:
             secret[i] = guess
     return secret
 
@@ -229,17 +232,13 @@ def play(word, lives):
     while tries > 0:
         cls()
         guessthis = encode(secret)
-        guessthis = guessthis.capitalize()
         print(easy_lives(tries, lives, guessthis))
         if playlog == empty_set:
             print("You've already tried these: {}")
         else:
             print("You've already tried these: " + str(playlog))
-#        print(word)
-#        print(set_of_letters)
-#        print(tries)
-#        print(lives)
-        if set_of_letters == empty_set:
+        guess = input()
+        if set_of_letters == empty_set or guess == word.lower():
             cls()
             print(f'''	╔═════╤       
 	║        Your word was : {word}
@@ -256,8 +255,7 @@ _____╔═╩╩══════╗______/ \______________''')
             if retry is False:
                 sys.exit()
             else:
-                game()
-        guess = input()
+                game()     
         try:
             int(guess)
             print('This is a number you idiot')
@@ -266,7 +264,8 @@ _____╔═╩╩══════╗______/ \______________''')
         except ValueError:
             guess = guess.lower()
         if guess == 'quit':
-            break
+            print("Don't come back")
+            sys.exit()
         elif guess in ['í','ö','ü','ó','ú','ő','ű','á','é']:
             print('Do I look like I speak Hungarian?')
             time.sleep(1.5)
@@ -320,7 +319,7 @@ wordlist = store_file()
 # if gamestate is true the game runs. if its false, it quits. this is where the main menu needs to return a bool
 # but i did not use it yet
 # and we migh not need gamestate anyway
-
+cls()
 print(boot_screen)
 time.sleep(3)
 game()
